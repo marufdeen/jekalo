@@ -22,8 +22,7 @@ class UserForm extends Component {
       e.preventDefault(); 
       const userDetails = {...this.state}
       api.post('/users', userDetails)
-       .then( ({data}) => { 
-        console.log('HELLo',data);
+       .then( ({data}) => {  
       if (data.error) {  
       this.setState({ error: data.error })
       }

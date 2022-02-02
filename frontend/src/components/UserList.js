@@ -7,6 +7,7 @@ export class UserDetails extends Component {
     this.state = {
       users: [],
     };
+    this.deleteUSer = this.deleteUSer.bind(this)
   }
   componentDidMount() {
     api.get("/users")
@@ -17,6 +18,17 @@ export class UserDetails extends Component {
         console.log(error);
       });
   } 
+  deleteUSer(userId) {
+    api.delete(`/users/${userId}`)
+    .then(({ data }) => {
+      const usersCopy = [...this.state.users].filter(user => user._id !== userId )
+      console.log(usersCopy);
+      return this.setState({users: usersCopy})
+    }) 
+    .catch((error) => {
+      console.log(error);
+    });
+  }
   render() {
     const { users } = this.state;
     return users.map((user) => ( 
@@ -26,7 +38,7 @@ export class UserDetails extends Component {
       <td className="align-middle">{user.userName}</td>
           <td className="align-middle">{user.firstName} {user.lastName}</td>
           <td className="align-middle">{user.dob}</td>
-          <td className="align-middle"><img src={trash} alt="delete" className="img-fluid icon" /></td>
+          <td className="align-middle" onClick={() => this.deleteUSer(user._id) }><img src={trash} alt="delete" className="img-fluid icon" /></td>
       </tr>
     ))
   }
