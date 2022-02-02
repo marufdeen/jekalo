@@ -72,7 +72,7 @@ API is deployed at [https://jekalo-app-v1.herokuapp.com/](https://jekalo-app-v1.
  firstName: String,
  lastName: String,
  username: String,
- dob: String,
+ dob: ('year-month-day'),
 }
 ```
  
