@@ -12,8 +12,7 @@ class userService {
       const userExist = await userDao.findByUserName(entity.getUserName());
       if (userExist) throw new Error("User name already exist");
 
-      const namePrefix = `${entity.getfirstName()[0].toUpperCase()}${entity.getlastName()[0].toUpperCase()}`;
-      console.log(namePrefix);
+      const namePrefix = `${entity.getfirstName()[0].toUpperCase()}${entity.getlastName()[0].toUpperCase()}`; 
       // if user does not exist, create the user
       const newUser = await userDao.create({
         namePrefix,
@@ -26,7 +25,7 @@ class userService {
       if (!newUser) throw new Error("User not Created");
       return { newUser };
     } catch (error) {
-      throw new Error(error.message);
+      return { error: error.message }
     }
   } 
 
@@ -36,7 +35,7 @@ class userService {
         return { message: "success", usersFound };
        
     } catch (error) {
-      throw new Error(error.message);
+      return { error: error.message }
     }
   } 
 

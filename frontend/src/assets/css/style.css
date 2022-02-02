@@ -1,0 +1,28 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+.custom-label{
+    font-weight: 600;
+    color: #11468F;
+}
+
+.btn-custom-primary{
+    background: #11468F !important;
+    color: white;
+    text-transform: uppercase;
+}
+
+.name-tag{
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 50%;
+    color: white;
+    background-color: #11468F;
+    text-align: center;
+    font-weight: 600;
+    vertical-align: middle;
+    display: inline-block;
+}

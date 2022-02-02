@@ -21,10 +21,10 @@ validators.validateUserCreation = (userData) => {
       "string.pattern.base": "Last name can only be alpahebtical characters"
   }),
     userName:  Joi.string().min(3).max(40).required().messages({
-      "string.base": "middleName must be string",
-      "string.empty": "Middle name field is required",
-      "string.min": "Middle Name can not be less than three alphabetical characters",
-      "string.max": "Middle Name can not be more than forty alphabetical characters",
+      "string.base": "userName must be string",
+      "string.empty": "userName name field is required",
+      "string.min": "userName Name can not be less than three alphabetical characters",
+      "string.max": "userName Name can not be more than forty alphabetical characters",
   }), 
     dob: Joi.date().max("now").required().messages({
       "date.base": "Not a valid date",
