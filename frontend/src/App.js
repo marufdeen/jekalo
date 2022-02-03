@@ -1,10 +1,9 @@
-import React, { Component } from 'react';  
-import UserForm from './components/UserForm';
-
+import React, { Component } from 'react';   
+import User from './components/User'
 class App extends Component {
   render() {
     return (
-      <UserForm />
+      <User />
     );
   }
 }

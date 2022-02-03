@@ -1,41 +1,8 @@
-import React, { Component } from 'react';
-import InputField from './InputField';
-import api from '../services/api'
-import UserList from './UserList';
-class UserForm extends Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-          firstName: '',
-          lastName: '',
-          userName: '',
-          dob: '',  
-      };
-      this.onChange = this.onChange.bind(this); 
-      this.onSubmit = this.onSubmit.bind(this);
-  }
-  onChange(e) {
-      const { name, value } = e.target;
-      this.setState({ [name]: value });
-  } 
-  onSubmit = (e) => {
-      e.preventDefault(); 
-      const userDetails = {...this.state}
-      api.post('/users', userDetails)
-       .then( ({data}) => {  
-      if (data.error) {  
-      this.setState({ error: data.error })
-      }
-      if(data.newUser) { 
-      this.setState({ success: 'You have successfully created a user!' })
-      }
-      delete this.state.error;
-      delete this.state.success;
-    })
-    .catch((error) =>  error);
-  }
-  feedBack = () => { 
-    const { error, success } = this.state;
+import React from 'react';
+import InputField from './InputField';  
+ 
+  const feedBack = (props) => { 
+    const { error, success } = props;
     if (error) { 
       return <div style={{textAlign: 'center'}}  className="alert-danger p-3" > {error} </div> ;
     }
@@ -43,18 +10,17 @@ class UserForm extends Component {
       return <div style={{textAlign: 'center'}}  className="alert-success p-3" > {success} </div>;
      } 
 } 
-  render() {
-    const { firstName, lastName, userName, dob } = this.state 
+  const UserForm = (props) =>  {
     return ( 
     <div className="container mt-5 mx-5">
-    { this.feedBack() } 
-    <form action="" method="post" onSubmit={this.onSubmit}>
+    {/*  { feedBack() }   */} 
+    <form action="" method="post" onSubmit={props.onSubmit}>
     <div className="row"> 
 
-      <InputField  type='text' name='firstName' value={firstName} 
-      onChange={this.onChange} placeholder='Anifowose' label='First Name'  />
+      <InputField  type='text' name='firstName' value={props.user.firstName} 
+      onChange={props.onChange} placeholder='Anifowose' label='First Name'  />
 
-      <InputField  type='text' name='lastName' value={lastName} onChange={this.onChange} placeholder='Habeeb' label='Last Name'  />
+      <InputField  type='text' name='lastName' value={props.user.lastName} onChange={props.onChange} placeholder='Habeeb' label='Last Name'  />
 
       <div className="col-md-3">
                   <div className="d-grid gap-2 my-4">
@@ -62,34 +28,14 @@ class UserForm extends Component {
       </div>
 </div>
 <div className="row"> 
-    <InputField  type='text' name='userName' value={userName} onChange={this.onChange} placeholder='mthamayor' label='User Name'  />
+    <InputField  type='text' name='userName' value={props.user.userName} onChange={props.onChange} placeholder='mthamayor' label='User Name'  />
 
-    <InputField  type='date' name='dob' value={dob} onChange={this.onChange} placeholder='Emeka' label='Date Of Birth'  />
+    <InputField  type='date' name='dob' value={props.user.dob} onChange={props.onChange} placeholder='Emeka' label='Date Of Birth'  />
 </div>
     </div>
     </form>  
-     <div className="row my-5">
-    <div className="col-md-8">
-        <table className="table table-borderless">
-            <thead className="table-light">
-              <tr>
-                <th scope="col">Users</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody> 
-   <UserList />
-
-   </tbody>
-          </table>
-    </div>
-</div>
     </div>
     )
-  }
-}
+  } 
 
 export default UserForm;
