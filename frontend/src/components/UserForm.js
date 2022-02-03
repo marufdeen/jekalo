@@ -1,19 +1,10 @@
 import React from 'react';
 import InputField from './InputField';  
- 
-  const feedBack = (props) => { 
-    const { error, success } = props;
-    if (error) { 
-      return <div style={{textAlign: 'center'}}  className="alert-danger p-3" > {error} </div> ;
-    }
-    if (success) {    
-      return <div style={{textAlign: 'center'}}  className="alert-success p-3" > {success} </div>;
-     } 
-} 
+
   const UserForm = (props) =>  {
     return ( 
     <div className="container mt-5 mx-5">
-    {/*  { feedBack() }   */} 
+      { props.feedBack() }    
     <form action="" method="post" onSubmit={props.onSubmit}>
     <div className="row"> 
 

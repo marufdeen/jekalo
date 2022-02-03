@@ -18,6 +18,7 @@ export class User extends Component {
     }; 
     this.deleteUSer = this.deleteUSer.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.feedBack = this.feedBack.bind(this);
   }
   componentDidMount() {
     api.get("/users")
@@ -38,12 +39,10 @@ export class User extends Component {
       e.preventDefault(); 
       const userDetails = {...this.state.user}
       api.post('/users', userDetails)
-       .then( ({data}) => {  
-         console.log(data.error);
+       .then( ({data}) => {   
       if (data.error) {  
       this.setState({ error: data.error })
-      }
-        console.log(data.newUser);
+      } 
       if(data.newUser) { 
         const usersCopy = [...this.state.users];
         usersCopy.push(data.newUser)
@@ -61,12 +60,21 @@ export class User extends Component {
     .catch((error) => {
       console.log(error);
     });
-  }
+  } 
+   feedBack  () { 
+    const { error, success } = this.state;
+    if (error) { 
+      return <div style={{textAlign: 'center'}}  className="alert-danger p-3" > {error} </div> ;
+    }
+    if (success) {    
+      return <div style={{textAlign: 'center'}}  className="alert-success p-3" > {success} </div>;
+     } 
+} 
   render() {
     const { users, user} = this.state; 
     return ( 
       <div>
-    <UserForm user={user} onChange={this.onChange} onSubmit={this.onSubmit} /> 
+    <UserForm user={user} feedBack={this.feedBack} onChange={this.onChange} onSubmit={this.onSubmit} /> 
     <UserList users={users} deleteUSer={this.deleteUSer}/>
 
       </div>
