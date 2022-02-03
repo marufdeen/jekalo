@@ -13,8 +13,8 @@ export class User extends Component {
         userName: '',
         dob: '',  
     },
-    error: '',
-    success: ''
+    error: false,
+    success: false
     }; 
     this.deleteUSer = this.deleteUSer.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -46,7 +46,7 @@ export class User extends Component {
       if(data.newUser) { 
         const usersCopy = [...this.state.users];
         usersCopy.push(data.newUser)
-      this.setState({ users: usersCopy })
+      this.setState({success: 'You have successfully created a user', users: usersCopy })
       } 
     })
     .catch((error) =>  error);
