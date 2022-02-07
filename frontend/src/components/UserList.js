@@ -26,7 +26,7 @@ function UserList(props) {
                </tr>
              </thead>
              <tbody> 
-                 {usersList} 
+                 {usersList? usersList : 'No User'} 
     </tbody>
            </table>
      </div>

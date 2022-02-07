@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import api from '../services/api';
 import UserForm from './UserForm';
 import UserList from './UserList';
@@ -6,13 +6,13 @@ export class User extends Component {
     constructor(props) {
     super(props);
     this.state = {
-      users: [],
       user: {
         firstName: '',
         lastName: '',
         userName: '',
         dob: '',  
     },
+      users: [],
     error: false,
     success: false
     }; 
@@ -41,12 +41,12 @@ export class User extends Component {
       api.post('/users', userDetails)
        .then( ({data}) => {   
       if (data.error) {  
-      this.setState({ error: data.error })
+      this.setState({ success: false, error: data.error })
       } 
       if(data.newUser) { 
         const usersCopy = [...this.state.users];
         usersCopy.push(data.newUser)
-      this.setState({success: 'You have successfully created a user', users: usersCopy })
+      this.setState({success: 'You have successfully created a user', error: false, users: usersCopy })
       } 
     })
     .catch((error) =>  error);
@@ -64,10 +64,10 @@ export class User extends Component {
    feedBack  () { 
     const { error, success } = this.state;
     if (error) { 
-      return <div style={{textAlign: 'center'}}  className="alert-danger p-3" > {error} </div> ;
+      return <div style={{textAlign: 'center'}} className="alert-danger p-3" > {error} </div>;
     }
     if (success) {    
-      return <div style={{textAlign: 'center'}}  className="alert-success p-3" > {success} </div>;
+      return <div style={{textAlign: 'center'}} className="alert-success p-3" > {success} </div>;
      } 
 } 
   render() {
@@ -76,7 +76,6 @@ export class User extends Component {
       <div>
     <UserForm user={user} feedBack={this.feedBack} onChange={this.onChange} onSubmit={this.onSubmit} /> 
     <UserList users={users} deleteUSer={this.deleteUSer}/>
-
       </div>
     )
   }
